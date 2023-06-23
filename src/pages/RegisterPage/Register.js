@@ -30,6 +30,7 @@ const InputField = styled(TextField)({
 
 export const Register = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const submit = async (e) => {
@@ -37,6 +38,7 @@ export const Register = () => {
 
     const result = await axios.post("http://localhost:8000/register", {
       email,
+      username,
       password,
     });
 
@@ -54,12 +56,20 @@ export const Register = () => {
             <InputField
               label="Enter your Email"
               variant="outlined"
+              
               style={{ borderColor: "#fff" }}
               onChange={(e) => setEmail(e.target.value)}
             />
             <InputField
+              label="Enter your username"
+              variant="outlined"
+              style={{ borderColor: "#fff" }}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <InputField
               label="Enter your password"
               variant="outlined"
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button

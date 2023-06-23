@@ -1,8 +1,10 @@
 import React from "react";
-import "./App.css";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 import { Login } from "./pages/LoginPage/Login";
 import { Register } from "./pages/RegisterPage/Register";
+import { Chat } from "./pages/ChatsPage/Chat";
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </Router>
     </div>
