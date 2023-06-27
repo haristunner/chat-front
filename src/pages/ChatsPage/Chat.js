@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Socket, io } from "socket.io-client";
@@ -7,7 +8,7 @@ const socket = io.connect("http://localhost:8000");
 export const Chat = () => {
   const [message, setMessage] = useState("");
   const [recepient, setRecepient] = useState([]);
-  const [receiver, setReceiver] = useState();
+  const [receiver, setReceiver] = useState({});
   const username = useSelector((state) => state.user.userName);
 
   console.log(username);
@@ -41,12 +42,47 @@ export const Chat = () => {
   // console.log(receiver);
   console.log(receiver);
 
-  const send = () => {
+  useEffect(() => {
+    const fetchChat = async () => {
+      if (receiver !== undefined) {
+        await axios
+          .get("http://localhost:8000/chat", {
+            params: {
+              sender: username,
+              receiver: receiver.userId,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    };
+
+    fetchChat();
+  }, [receiver]);
+
+  const send = async () => {
     socket.emit("send", {
       sender: username,
       receiver,
       message,
     });
+
+    await axios
+      .post("http://localhost:8000/chat", {
+        sender: username,
+        receiver: receiver.userId,
+        message,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
     setMessage("");
   };
