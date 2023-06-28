@@ -4,26 +4,33 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
+import svg from "../../assets/virtual-class.png";
+import { useNavigate } from "react-router-dom";
 
 const InputField = styled(TextField)({
   //label stylings
   "& label": {
-    color: "#fff",
+    color: "#14daa1",
+    opacity: "0.5",
   },
   "& label.Mui-focused": {
-    color: "#7efc99",
+    color: "#14daa1",
+    opacity: "1",
   },
 
   //input outline stylings
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#fff",
+      borderColor: "#14daa1",
+      opacity: "0.5",
     },
     "&:hover fieldset": {
-      borderColor: "#f9f9f9",
+      borderColor: "#14daa1",
+      opacity: "1",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#14A44D",
+      borderColor: "#14daa1",
+      opacity: "1",
     },
   },
 });
@@ -32,6 +39,8 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -47,8 +56,10 @@ export const Register = () => {
 
   return (
     <div className="register">
-      <h1>Visualizee</h1>
-      <div className="blob"></div>
+      <div className="register__left">
+        <h1>Visualizee</h1>
+        <img src={svg} alt="svg" />
+      </div>
       <div className="register__container">
         <h3>Register to Visually Communicate</h3>
         <form onSubmit={submit}>
@@ -56,7 +67,6 @@ export const Register = () => {
             <InputField
               label="Enter your Email"
               variant="outlined"
-              
               style={{ borderColor: "#fff" }}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -75,10 +85,30 @@ export const Register = () => {
             <Button
               type="submit"
               variant="contained"
-              style={{ backgroundColor: "#41c267" }}
+              style={{ backgroundColor: "#14daa1" }}
             >
               Submit
             </Button>
+
+            <div>
+              <span>
+                Already Have a Account? continue
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    textDecoration: "underline",
+                    fontWeight:"600",
+                    cursor:"pointer"
+                  }}
+                >
+                  Login
+                </button>
+              </span>
+            </div>
           </div>
         </form>
       </div>
