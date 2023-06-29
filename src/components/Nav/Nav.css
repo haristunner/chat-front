@@ -1,0 +1,24 @@
+.nav {
+  position: fixed;
+  width: 100%;
+  background: #ececec;
+  top: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 7vw;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__logo > h5 {
+  text-transform: uppercase;
+  text-shadow: 1px 1px #aeaeae;
+}

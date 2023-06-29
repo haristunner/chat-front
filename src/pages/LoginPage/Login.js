@@ -67,7 +67,7 @@ export const Login = () => {
     <div className="login">
       <div className="login__left">
         <h1>Visualizee</h1>
-        <img src={svg} alt="" style={{ height: "30vh" }} />
+        <img src={svg} alt="" />
       </div>
       <div className="login__container">
         <h3>LOGIN TO VISUALLY COMMUNICATE</h3>

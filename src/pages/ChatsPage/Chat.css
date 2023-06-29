@@ -1,0 +1,46 @@
+.chat__container {
+  margin-top: 7.3vh;
+  display: flex;
+  justify-content: space-between;
+  min-height: 92.3vh;
+}
+
+.recepients {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  border-right: 1px solid;
+  position: fixed;
+  height: 100vh;
+}
+
+.recepients > div {
+  border: 1px solid rgb(216, 216, 216);
+  padding: 20px 10px;
+  cursor: pointer;
+}
+
+.chat__screen {
+  margin-left: 35%;
+  width: 65%;
+  min-height: 92.3vh;
+}
+
+.our_msg {
+  text-align: end;
+}
+
+.receiver_msg {
+  text-align: left;
+}
+
+.chat__screen > form {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+
+/* .chat__screen > div {
+  display: flex;
+} */

@@ -5,6 +5,10 @@
   min-height: 100vh;
 }
 
+.login__left > img {
+  height: 30vh;
+}
+
 .login__left > h1 {
   text-transform: uppercase;
   text-shadow: 3px 3px #aeaeae;

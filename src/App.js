@@ -8,7 +8,7 @@ import { Chat } from "./pages/ChatsPage/Chat";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{minHeight:"100vh"}}>
       <Router>
         <Routes>
           <Route path="/" element={<Register />} />
