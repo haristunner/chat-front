@@ -1,8 +1,10 @@
 .nav {
   position: fixed;
   width: 100%;
-  background: #ececec;
+  
+  background: #fff;
   top: 0;
+  border: 1px solid #fafafa;
 }
 
 nav {
