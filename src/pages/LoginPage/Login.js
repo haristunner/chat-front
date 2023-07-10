@@ -64,7 +64,7 @@ export const Login = () => {
           });
           setTimeout(() => {
             navigate("/chat");
-          }, 3000);
+          }, 1000);
         } else if (res.data.message === "no") {
           toast.error("Please check your email or password", {
             autoClose: 3000,

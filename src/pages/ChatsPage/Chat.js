@@ -7,6 +7,7 @@ import "./Chat.css";
 import { Button, TextField } from "@mui/material";
 import styled from "styled-components";
 import svg from "../../assets/chat.svg";
+import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers";
 
 //connecting socket client to server
 const socket = io.connect("http://localhost:8000");
@@ -79,8 +80,16 @@ export const Chat = () => {
           },
         })
         .then((res) => {
-          setRecepients(res.data);
-          console.log(res, "response of users");
+          if (receiver) {
+            const add = res.data.push(receiver);
+          }
+          if (res.data.length) {
+            const tempRecepients = res.data.filter(
+              (item, index) => res.data.indexOf(item) === index
+            );
+            setRecepients([tempRecepients]);
+            console.log(tempRecepients, "temp", res.data);
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -130,6 +139,11 @@ export const Chat = () => {
     return messages;
   }, [messages]);
 
+  const handleReceiver = (rec) => {
+    setReceiver(rec);
+    console.log("itssssss");
+  };
+
   useEffect(() => {
     //to fetch messages from db
     const fetchChat = async () => {
@@ -157,43 +171,41 @@ export const Chat = () => {
   window.receiver = receiver;
   window.messages = messages;
   window.onlineUsers = onlineUsers;
+  window.recepients = recepients;
 
   return (
     <div>
       <Nav />
       <div className="chat__container">
         <div className="recepients">
-          {/* <div className="online_users">
-            {onlineUsers.length ? (
-              onlineUsers.map((user, index) => {
-                return <div>{user.userId}</div>;
-              })
-            ) : (
-              <p>No Online Users</p>
-            )}
-          </div> */}
           <div className="chatted__users">
-            {recepients.map((user, index) => {
+            {recepients[0]?.map((user, index) => {
               //when this clicks -> setting who is the receiver
               return (
                 <div
                   className={receiver === user ? `chatted__user` : ""}
                   key={index}
-                  onClick={() => setReceiver(user)}
+                  onClick={() => handleReceiver(user)}
                 >
                   {user}
                 </div>
               );
             })}
           </div>
+
+          <OnlineUsers
+            onlineUsers={onlineUsers}
+            handleReceiver={handleReceiver}
+          />
         </div>
+
         {receiver ? (
           <div className="chat__screen">
             <div className="chat__nav">
               <p>{receiver}</p>
             </div>
 
-            <div>
+            <div className="messages">
               {messages.map((message, index) => {
                 return (
                   <p

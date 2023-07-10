@@ -72,6 +72,10 @@
   flex-direction: column;
 }
 
+.messages{
+  margin-top: 7.5vh;
+}
+
 .chat__screen_ > p > p {
   margin: 0;
 }
