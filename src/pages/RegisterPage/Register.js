@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import "./Register.css";
 import axios from "axios";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import svg from "../../assets/virtual-class.png";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
+//ITS importmant to import tostify css first and then our css,
+//so that only our custom css will work
+import "react-toastify/dist/ReactToastify.css";
+import "./Register.css";
 
 const InputField = styled(TextField)({
   //label stylings
@@ -45,13 +50,50 @@ export const Register = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const result = await axios.post("http://localhost:8000/register", {
-      email,
-      username,
-      password,
-    });
-
-    console.log(result.data.message);
+    if (username.length === 0) {
+      toast.error("Please enter username", {
+        autoClose: 3000,
+      });
+      return;
+    } else if (password.length < 6) {
+      toast.error("Password should be atleast 6 characters", {
+        autoClose: 3000,
+      });
+      return;
+    } else {
+      const result = await axios
+        .post("http://localhost:8000/register", {
+          email,
+          username,
+          password,
+        })
+        .then((res) => {
+          if (res.data.message === "Already registered") {
+            toast.error("Already registered", {
+              autoClose: 3000,
+            });
+          } else if (res.data.message === "Data saved successfully") {
+            toast.success("Successfully registered, Now you can login to Chat");
+            setTimeout(() => {
+              navigate("/login");
+            }, 3000);
+          } else {
+            toast.error("An error occured", {
+              autoClose: 3000,
+            });
+          }
+          console.log(res.data.message);
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            toast.error("Please check your internet", {
+              autoClose: 3000,
+            });
+          }
+          console.log(err);
+        });
+      // console.log(result.data.message);
+    }
   };
 
   return (
@@ -89,7 +131,7 @@ export const Register = () => {
             >
               Submit
             </Button>
-
+            <ToastContainer toastClassName="custom__toast-container" />
             <div>
               <span>
                 Already Have a Account? continue
@@ -101,8 +143,8 @@ export const Register = () => {
                     border: "none",
                     background: "transparent",
                     textDecoration: "underline",
-                    fontWeight:"600",
-                    cursor:"pointer"
+                    fontWeight: "600",
+                    cursor: "pointer",
                   }}
                 >
                   Login

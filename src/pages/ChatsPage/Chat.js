@@ -6,6 +6,7 @@ import { Nav } from "../../components/Nav/Nav";
 import "./Chat.css";
 import { Button, TextField } from "@mui/material";
 import styled from "styled-components";
+import svg from "../../assets/chat.svg";
 
 //connecting socket client to server
 const socket = io.connect("http://localhost:8000");
@@ -30,7 +31,7 @@ const MessageInput = styled(TextField)({
 export const Chat = () => {
   const [message, setMessage] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [receiver, setReceiver] = useState({});
+  const [receiver, setReceiver] = useState("");
   const [messages, setMessages] = useState([]);
   const [recepients, setRecepients] = useState([]);
 
@@ -186,42 +187,49 @@ export const Chat = () => {
             })}
           </div>
         </div>
-        <div className="chat__screen">
-          <div>
-            {messages.map((message, index) => {
-              return (
-                <p
-                  key={index}
-                  className={
-                    message.sender === username ? "our_msg" : "receiver_msg"
-                  }
-                >
-                  {message.message}
-                </p>
-              );
-            })}
+        {receiver ? (
+          <div className="chat__screen">
+            <div className="chat__nav">
+              <p>{receiver}</p>
+            </div>
+
+            <div>
+              {messages.map((message, index) => {
+                return (
+                  <p
+                    key={index}
+                    className={
+                      message.sender === username ? "our_msg" : "receiver_msg"
+                    }
+                  >
+                    {message.message}
+                  </p>
+                );
+              })}
+            </div>
+
+            <form onSubmit={sendMessage}>
+              <MessageInput
+                placeholder="Enter the message"
+                size="small"
+                fullWidth
+                type="text"
+                value={message}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+              />
+            </form>
           </div>
-          <form onSubmit={sendMessage}>
-            <MessageInput
-              placeholder="Enter the message"
-              size="small"
-              fullWidth
-              type="text"
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
-            {/* <Button
-              variant="contained"
-              type="submit"
-              endIcon={<SendIcon />}
-              style={{ width: "10vw" }}
-            >
-              send
-            </Button> */}
-          </form>
-        </div>
+        ) : (
+          <div className="chat__screen_">
+            <img src={svg} alt="" style={{ height: "40vh" }} />
+            <p>
+              Send and Receive messages between your friends
+              <p>Only when they are Online</p>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

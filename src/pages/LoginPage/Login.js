@@ -10,6 +10,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { set_username } from "../../features/UserSlice";
 import svg from "../../assets/video-chat.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InputField = styled(TextField)({
   //label stylings
@@ -49,18 +51,38 @@ export const Login = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const result = await axios.post("http://localhost:8000/login", {
-      email,
-      password,
-    });
+    const result = await axios
+      .post("http://localhost:8000/login", {
+        email,
+        password,
+      })
+      .then((res) => {
+        if (res.data.message === "matched") {
+          dispatch(set_username(res.data.username));
+          toast.success("Welcome to Visually communicate", {
+            autoClose: 3000,
+          });
+          setTimeout(() => {
+            navigate("/chat");
+          }, 3000);
+        } else if (res.data.message === "no") {
+          toast.error("Please check your email or password", {
+            autoClose: 3000,
+          });
+        } else {
+          toast.error("Unknown error occured");
+        }
+        console.log(res);
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          toast.error("Please check your internet", {
+            autoClose: 3000,
+          });
+        }
+      });
 
-    if (result.data.message === "matched") {
-      // window.localStorage.setItem("username", result.data.username);
-      dispatch(set_username(result.data.username));
-      navigate("/chat");
-    }
-
-    console.log(result);
+    // console.log(result);
   };
 
   return (
@@ -95,6 +117,7 @@ export const Login = () => {
             >
               Submit
             </Button>
+            <ToastContainer />
             <div>
               <span>New user to chat? continue</span>
               <button

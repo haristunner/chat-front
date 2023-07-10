@@ -38,3 +38,13 @@
   /* width: 22vw; */
   padding: 10px;
 }
+
+.Toastify__toast-container {
+  top: auto;
+  right: auto;
+}
+
+/* .toast__password {
+  top: auto;
+  right: auto;
+} */

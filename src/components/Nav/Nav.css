@@ -1,10 +1,10 @@
 .nav {
   position: fixed;
   width: 100%;
-  
-  background: #fff;
+  background: #c0c0c0;
   top: 0;
-  border: 1px solid #fafafa;
+  /* border: 1px solid #fafafa; */
+  z-index: 11;
 }
 
 nav {
