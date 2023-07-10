@@ -76,9 +76,7 @@
   margin-top: 7.5vh;
 }
 
-.chat__screen_ > p > p {
-  margin: 0;
-}
+
 
 .our_msg {
   margin-left: auto;
@@ -120,12 +118,11 @@
 }
 
 .chat__nav {
-  height: 6vh;
+  height: 6.5vh;
   position: fixed;
   width: 100%;
   z-index: 1;
   background: #e1e1e1;
-  /* margin-top: 4px; */
   display: flex;
   align-items: center;
 }
@@ -134,6 +131,7 @@
   margin-left: 5vw;
   font-weight: 600;
   font-size: 30px;
+  text-transform: capitalize;
 }
 
 .chat__screen > div {

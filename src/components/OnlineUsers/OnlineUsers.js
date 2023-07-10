@@ -12,7 +12,9 @@ export const OnlineUsers = ({ onlineUsers, handleReceiver }) => {
           onlineUsers.length ? (
             onlineUsers.map((user, index) => {
               return (
-                <div onClick={()=>handleReceiver(user.userId)}>{user.userId}</div>
+                <div key={index} onClick={() => handleReceiver(user.userId)}>
+                  {user.userId}
+                </div>
               );
             })
           ) : (

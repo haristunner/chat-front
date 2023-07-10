@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { Nav } from "../../components/Nav/Nav";
@@ -8,6 +8,7 @@ import { Button, TextField } from "@mui/material";
 import styled from "styled-components";
 import svg from "../../assets/chat.svg";
 import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers";
+import LockIcon from "@mui/icons-material/Lock";
 
 //connecting socket client to server
 const socket = io.connect("http://localhost:8000");
@@ -36,9 +37,9 @@ export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [recepients, setRecepients] = useState([]);
 
-  const [bool, setBool] = useState(true);
-
   const username = useSelector((state) => state.user.userName);
+
+  const messageRef = useRef(null);
 
   useEffect(() => {
     //first it sends the username to the addUser event
@@ -70,6 +71,14 @@ export const Chat = () => {
     };
   });
 
+  const scrollToBottom = () => {
+    messageRef.current?.scrollIntoView();
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages,receiver]);
+
   //to get user array whom,
   useEffect(() => {
     const fetchUser = async () => {
@@ -80,10 +89,15 @@ export const Chat = () => {
           },
         })
         .then((res) => {
+          //receiver is clicked from online users or in recepients,
+          //pushing receiver in response
           if (receiver) {
             const add = res.data.push(receiver);
           }
           if (res.data.length) {
+            //to remove duplicates
+            //indexOf -> returns first occurence of value
+            //so, if already there means, index will not be equal
             const tempRecepients = res.data.filter(
               (item, index) => res.data.indexOf(item) === index
             );
@@ -97,7 +111,7 @@ export const Chat = () => {
     };
 
     fetchUser();
-  }, [receiver]);
+  }, [receiver, username]);
 
   // const receiver = recepient.filter((user) => user.userId !== username);
   // console.log(receiver);
@@ -135,13 +149,8 @@ export const Chat = () => {
       });
   };
 
-  const mess = useMemo(() => {
-    return messages;
-  }, [messages]);
-
   const handleReceiver = (rec) => {
     setReceiver(rec);
-    console.log("itssssss");
   };
 
   useEffect(() => {
@@ -166,8 +175,9 @@ export const Chat = () => {
     };
 
     fetchChat();
-  }, [receiver]);
+  }, [receiver, username]);
 
+  //remove in production
   window.receiver = receiver;
   window.messages = messages;
   window.onlineUsers = onlineUsers;
@@ -219,6 +229,7 @@ export const Chat = () => {
                 );
               })}
             </div>
+            <div ref={messageRef}></div>
 
             <form onSubmit={sendMessage}>
               <MessageInput
@@ -236,10 +247,21 @@ export const Chat = () => {
         ) : (
           <div className="chat__screen_">
             <img src={svg} alt="" style={{ height: "40vh" }} />
-            <p>
-              Send and Receive messages between your friends
-              <p>Only when they are Online</p>
+            <p style={{ width: "35%" }}>
+              Send and Receive messages between your friends to visually
+              communicate.
             </p>
+            <div
+              style={{
+                display: "flex",
+                position: "absolute",
+                bottom: "2vh",
+                opacity: "0.4",
+              }}
+            >
+              <LockIcon />
+              End-to-end encrypted
+            </div>
           </div>
         )}
       </div>
