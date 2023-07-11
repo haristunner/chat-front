@@ -71,13 +71,17 @@ export const Chat = () => {
     };
   });
 
+  //scrollIntoView -> by default, our messages are mapped and the first message will be displayed first and
+  //latest messages are in bottom, if we want to see that ,we need to scroll
+  //for this, we are taking the reference of the div(messages bottom empty div)
+  //this scrollIntoView helps to see that div, so the messages will always in bottom
   const scrollToBottom = () => {
     messageRef.current?.scrollIntoView();
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages,receiver]);
+  }, [messages, receiver]);
 
   //to get user array whom,
   useEffect(() => {
@@ -183,6 +187,7 @@ export const Chat = () => {
   window.onlineUsers = onlineUsers;
   window.recepients = recepients;
 
+  
   return (
     <div>
       <Nav />
@@ -198,6 +203,7 @@ export const Chat = () => {
                   onClick={() => handleReceiver(user)}
                 >
                   {user}
+                  {/* {messages[messages.length - 1]?.message} */}
                 </div>
               );
             })}

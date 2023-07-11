@@ -5,17 +5,19 @@ import "./App.css";
 import { Login } from "./pages/LoginPage/Login";
 import { Register } from "./pages/RegisterPage/Register";
 import { Chat } from "./pages/ChatsPage/Chat";
+import { useSelector } from "react-redux";
 
 function App() {
+  const loginState = useSelector((state) => state.user.loginState);
+
+  console.log(loginState);
   return (
-    <div className="App" >
-      <Router>
-        <Routes>
-          <Route path="/" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/chat" element={<Chat />} />
-        </Routes>
-      </Router>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        {loginState ? <Route path="/chat" element={<Chat />} /> : null}
+      </Routes>
     </div>
   );
 }

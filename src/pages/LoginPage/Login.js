@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { set_username } from "../../features/UserSlice";
+import { set_loginState, set_username } from "../../features/UserSlice";
 import svg from "../../assets/video-chat.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,6 +44,7 @@ const InputField = styled(TextField)({
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginState, setLoginState] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ export const Login = () => {
       .then((res) => {
         if (res.data.message === "matched") {
           dispatch(set_username(res.data.username));
+          dispatch(set_loginState(loginState));
           toast.success("Welcome to Visually communicate", {
             autoClose: 3000,
           });
