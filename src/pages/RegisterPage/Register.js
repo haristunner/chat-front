@@ -102,7 +102,7 @@ export const Register = () => {
           }
           console.log(err);
         });
-      console.log(result.data.message);
+     
     }
   };
 

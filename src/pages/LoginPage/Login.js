@@ -80,6 +80,14 @@ export const Login = () => {
             toast.error("Please check your email or password", {
               autoClose: 3000,
             });
+          } else if (res.data.message === "new user") {
+            toast.error("Please Sign up to chat", {
+              autoClose: 3000,
+            });
+
+            setTimeout(() => {
+              navigate("/");
+            }, 3000);
           } else {
             toast.error("Unknown error occured");
           }
