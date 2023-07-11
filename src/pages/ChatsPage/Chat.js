@@ -11,7 +11,7 @@ import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers";
 import LockIcon from "@mui/icons-material/Lock";
 
 //connecting socket client to server
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect("https://visualizee.onrender.com/");
 
 const MessageInput = styled(TextField)({
   "& .MuiOutlinedInput-root": {

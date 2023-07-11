@@ -45,20 +45,30 @@ export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [files, setFile] = useState([]);
+
   const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
 
-    if (username.length === 0) {
+    if (!email.length) {
+      toast.error("Please enter the email", {
+        autoClose: 3000,
+      });
+
+      return;
+    } else if (username.length === 0) {
       toast.error("Please enter username", {
         autoClose: 3000,
       });
+
       return;
     } else if (password.length < 6) {
       toast.error("Password should be atleast 6 characters", {
         autoClose: 3000,
       });
+
       return;
     } else {
       const result = await axios
@@ -92,19 +102,19 @@ export const Register = () => {
           }
           console.log(err);
         });
-      // console.log(result.data.message);
+      console.log(result.data.message);
     }
   };
 
   return (
     <div className="register">
       <div className="register__left">
-        <h1>Visualizee</h1>
+        <h1>Visualizeee</h1>
         <img src={svg} alt="svg" />
       </div>
       <div className="register__container">
         <h3>Register to Visually Communicate</h3>
-        <form onSubmit={submit}>
+        <form onSubmit={submit} encType="multipart/form-data">
           <div className="register__input">
             <InputField
               label="Enter your Email"
@@ -124,6 +134,7 @@ export const Register = () => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <Button
               type="submit"
               variant="contained"

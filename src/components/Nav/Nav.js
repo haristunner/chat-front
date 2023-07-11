@@ -10,7 +10,7 @@ export const Nav = () => {
       <nav>
         <div className="nav__logo">
           <img src={logo} alt="logo" style={{ height: "4vh" }} />
-          <h5>Visualizee</h5>
+          <h5>Visualizeee</h5>
         </div>
         <div className="nav__user">
           <p>

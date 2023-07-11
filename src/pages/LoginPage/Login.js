@@ -52,37 +52,48 @@ export const Login = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const result = await axios
-      .post("http://localhost:8000/login", {
-        email,
-        password,
-      })
-      .then((res) => {
-        if (res.data.message === "matched") {
-          dispatch(set_username(res.data.username));
-          dispatch(set_loginState(loginState));
-          toast.success("Welcome to Visually communicate", {
-            autoClose: 3000,
-          });
-          setTimeout(() => {
-            navigate("/chat");
-          }, 1000);
-        } else if (res.data.message === "no") {
-          toast.error("Please check your email or password", {
-            autoClose: 3000,
-          });
-        } else {
-          toast.error("Unknown error occured");
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        if (err.message === "Network Error") {
-          toast.error("Please check your internet", {
-            autoClose: 3000,
-          });
-        }
+    if (!email.length && !password.length) {
+      toast.error("Please enter your credentials", {
+        autoClose: 3000,
       });
+
+      return;
+    } else {
+      const result = await axios
+        .post("http://localhost:8000/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          if (res.data.message === "matched") {
+            dispatch(set_username(res.data.username));
+            dispatch(set_loginState(loginState));
+
+            toast.success("Welcome to Visually communicate", {
+              autoClose: 3000,
+            });
+
+            setTimeout(() => {
+              navigate("/chat");
+            }, 1000);
+          } else if (res.data.message === "no") {
+            toast.error("Please check your email or password", {
+              autoClose: 3000,
+            });
+          } else {
+            toast.error("Unknown error occured");
+          }
+
+          console.log(res);
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            toast.error("Please check your internet", {
+              autoClose: 3000,
+            });
+          }
+        });
+    }
 
     // console.log(result);
   };
@@ -90,7 +101,7 @@ export const Login = () => {
   return (
     <div className="login">
       <div className="login__left">
-        <h1>Visualizee</h1>
+        <h1>Visualizeee</h1>
         <img src={svg} alt="" />
       </div>
       <div className="login__container">
