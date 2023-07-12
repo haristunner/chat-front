@@ -87,7 +87,7 @@ export const Chat = () => {
   useEffect(() => {
     const fetchUser = async () => {
       await axios
-        .get("http://localhost:8000/users", {
+        .get("https://visualizee.onrender.com/users", {
           params: {
             sender: username,
           },
@@ -140,7 +140,7 @@ export const Chat = () => {
 
     //store the messages in db
     await axios
-      .post("http://localhost:8000/chat", {
+      .post("https://visualizee.onrender.com/chat", {
         sender: username,
         receiver: receiver,
         message,
@@ -162,7 +162,7 @@ export const Chat = () => {
     const fetchChat = async () => {
       if (receiver !== undefined) {
         await axios
-          .get("http://localhost:8000/chat", {
+          .get("https://visualizee.onrender.com/chat", {
             params: {
               sender: username,
               receiver: receiver,

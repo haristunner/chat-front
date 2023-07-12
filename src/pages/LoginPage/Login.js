@@ -60,7 +60,7 @@ export const Login = () => {
       return;
     } else {
       const result = await axios
-        .post("http://localhost:8000/login", {
+        .post("https://visualizee.onrender.com/login", {
           email,
           password,
         })

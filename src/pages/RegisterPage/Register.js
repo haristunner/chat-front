@@ -72,7 +72,7 @@ export const Register = () => {
       return;
     } else {
       const result = await axios
-        .post("http://localhost:8000/register", {
+        .post("https://visualizee.onrender.com//register", {
           email,
           username,
           password,
