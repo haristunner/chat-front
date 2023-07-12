@@ -46,8 +46,6 @@ export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [files, setFile] = useState([]);
-
   const navigate = useNavigate();
 
   console.log(server, "server");

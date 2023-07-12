@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { Nav } from "../../components/Nav/Nav";
 import "./Chat.css";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import styled from "styled-components";
 import svg from "../../assets/chat.svg";
 import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers";
@@ -61,7 +61,10 @@ export const Chat = () => {
     socket.on("send", ({ sender, message }) => {
       console.log("messssing", message, receiver, sender);
 
-      setMessages([...messages, { message, sender, receiver: username }]);
+      setMessages([
+        ...messages,
+        { message, sender, receiver: username, createdAt: new Date() },
+      ]);
     });
 
     //clean up all the listeners
@@ -156,10 +159,12 @@ export const Chat = () => {
       message,
     });
 
+    const date = new Date();
+
     //Currently sent message is not retrieved from db, so setting it in the client itself
     setMessages([
       ...messages,
-      { message, sender: username, receiver: receiver },
+      { message, sender: username, receiver: receiver, createdAt: date },
     ]);
 
     setMessage("");

@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { set_loginState, set_username } from "../../features/UserSlice";
 import svg from "../../assets/video-chat.png";
