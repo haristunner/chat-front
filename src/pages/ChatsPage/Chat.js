@@ -9,9 +9,10 @@ import styled from "styled-components";
 import svg from "../../assets/chat.svg";
 import { OnlineUsers } from "../../components/OnlineUsers/OnlineUsers";
 import LockIcon from "@mui/icons-material/Lock";
+import { server } from "../../axios";
 
 //connecting socket client to server
-const socket = io.connect("https://visualizee.onrender.com/");
+const socket = io.connect(`${server}`);
 
 const MessageInput = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -87,7 +88,7 @@ export const Chat = () => {
   useEffect(() => {
     const fetchUser = async () => {
       await axios
-        .get("https://visualizee.onrender.com/users", {
+        .get(`${server}users`, {
           params: {
             sender: username,
           },
@@ -115,7 +116,7 @@ export const Chat = () => {
     };
 
     fetchUser();
-  }, [receiver, username,messages]);
+  }, [receiver, username, messages]);
 
   // const receiver = recepient.filter((user) => user.userId !== username);
   // console.log(receiver);
@@ -140,7 +141,7 @@ export const Chat = () => {
 
     //store the messages in db
     await axios
-      .post("https://visualizee.onrender.com/chat", {
+      .post(`${server}chat`, {
         sender: username,
         receiver: receiver,
         message,
@@ -162,7 +163,7 @@ export const Chat = () => {
     const fetchChat = async () => {
       if (receiver !== undefined) {
         await axios
-          .get("https://visualizee.onrender.com/chat", {
+          .get(`${server}chat`, {
             params: {
               sender: username,
               receiver: receiver,
@@ -187,7 +188,6 @@ export const Chat = () => {
   window.onlineUsers = onlineUsers;
   window.recepients = recepients;
 
-  
   return (
     <div>
       <Nav />

@@ -24,3 +24,8 @@ nav {
   text-transform: uppercase;
   text-shadow: 1px 1px #aeaeae;
 }
+
+.nav__user{
+  display: flex;
+  align-items: center;
+}

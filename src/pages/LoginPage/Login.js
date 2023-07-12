@@ -12,6 +12,7 @@ import { set_loginState, set_username } from "../../features/UserSlice";
 import svg from "../../assets/video-chat.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { server } from "../../axios";
 
 const InputField = styled(TextField)({
   //label stylings
@@ -44,7 +45,6 @@ const InputField = styled(TextField)({
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginState, setLoginState] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -60,14 +60,14 @@ export const Login = () => {
       return;
     } else {
       const result = await axios
-        .post("https://visualizee.onrender.com/login", {
+        .post(`${server}login`, {
           email,
           password,
         })
         .then((res) => {
           if (res.data.message === "matched") {
             dispatch(set_username(res.data.username));
-            dispatch(set_loginState(loginState));
+            dispatch(set_loginState(true));
 
             toast.success("Welcome to Visually communicate", {
               autoClose: 3000,
@@ -75,7 +75,7 @@ export const Login = () => {
 
             setTimeout(() => {
               navigate("/chat");
-            }, 1000);
+            }, 3000);
           } else if (res.data.message === "no") {
             toast.error("Please check your email or password", {
               autoClose: 3000,

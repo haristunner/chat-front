@@ -11,6 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 //so that only our custom css will work
 import "react-toastify/dist/ReactToastify.css";
 import "./Register.css";
+import { server } from "../../axios";
 
 const InputField = styled(TextField)({
   //label stylings
@@ -49,6 +50,8 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
+  console.log(server, "server");
+
   const submit = async (e) => {
     e.preventDefault();
 
@@ -72,7 +75,7 @@ export const Register = () => {
       return;
     } else {
       const result = await axios
-        .post("https://visualizee.onrender.com//register", {
+        .post(`${server}register`, {
           email,
           username,
           password,
@@ -102,7 +105,6 @@ export const Register = () => {
           }
           console.log(err);
         });
-     
     }
   };
 

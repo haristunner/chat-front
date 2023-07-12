@@ -2,6 +2,7 @@ import React from "react";
 import "./Nav.css";
 import logo from "../../assets/icons8-chat-64.png";
 import { useSelector } from "react-redux";
+import { Logout } from "../Logout/Logout";
 
 export const Nav = () => {
   const userName = useSelector((state) => state.user.userName);
@@ -19,6 +20,7 @@ export const Nav = () => {
               " {userName} "
             </span>
           </p>
+          <Logout />
         </div>
       </nav>
     </div>
