@@ -14,12 +14,19 @@ export const Nav = () => {
           <h5>Visualizeee</h5>
         </div>
         <div className="nav__user">
-          <p>
-            Hello{" "}
-            <span style={{ fontWeight: "600", textTransform: "uppercase" }}>
-              " {userName} "
-            </span>
-          </p>
+          <div
+            style={{
+              fontWeight: "600",
+              textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginRight:"2.5vw"
+            }}
+          >
+            <p style={{ margin: "0", opacity: "0.7" }}>Hello </p>" {userName} "
+          </div>
           <Logout />
         </div>
       </nav>

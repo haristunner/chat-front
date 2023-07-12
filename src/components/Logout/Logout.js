@@ -2,7 +2,6 @@ import React from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import "./Logout.css";
 import { useDispatch } from "react-redux";
 import { set_loginState } from "../../features/UserSlice";
 import { ToastContainer, toast } from "react-toastify";
@@ -28,7 +27,7 @@ export const Logout = () => {
     <div className="logout">
       <Tooltip title="Logout">
         <IconButton onClick={logout}>
-          <LogoutIcon />
+          <LogoutIcon style={{ color: "#ff5f56" }} />
         </IconButton>
       </Tooltip>
       <ToastContainer />

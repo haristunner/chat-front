@@ -84,6 +84,31 @@ export const Chat = () => {
     scrollToBottom();
   }, [messages, receiver]);
 
+  //get Time the message
+  const getTime = (timestamp) => {
+    //convert the timestamp to date obj
+    let date = new Date(timestamp);
+
+    //time from timestamp is GMT, convert to IST
+    let localTime = date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+
+    let indiaTime = new Date(localTime);
+    let hours = indiaTime.getHours();
+    let minutes = indiaTime.getMinutes();
+
+    if (hours < 10) {
+      hours = `0${hours}`;
+    }
+
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+
+    let result = `${hours}:${minutes}`;
+
+    return result;
+  };
+
   //to get user array whom,
   useEffect(() => {
     const fetchUser = async () => {
@@ -201,6 +226,7 @@ export const Chat = () => {
                   className={receiver === user ? `chatted__user` : ""}
                   key={index}
                   onClick={() => handleReceiver(user)}
+                  style={{ textTransform: "capitalize" }}
                 >
                   {user}
                   {/* {messages[messages.length - 1]?.message} */}
@@ -229,8 +255,21 @@ export const Chat = () => {
                     className={
                       message.sender === username ? "our_msg" : "receiver_msg"
                     }
+                    style={{ position: "relative" }}
                   >
                     {message.message}
+                    <span
+                      style={{
+                        position: "absolute",
+                        right: "5px",
+                        bottom: "2px",
+                        fontSize: "8px",
+                        opacity: "0.6",
+                      }}
+                    >
+                      {" "}
+                      {getTime(message.createdAt)}
+                    </span>
                   </p>
                 );
               })}

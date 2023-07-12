@@ -11,7 +11,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 7vw;
+  margin: 0 0 0 7vw;
 }
 
 .nav__logo {
@@ -25,7 +25,8 @@ nav {
   text-shadow: 1px 1px #aeaeae;
 }
 
-.nav__user{
+.nav__user {
   display: flex;
   align-items: center;
+  margin-right: 4.5vw;
 }

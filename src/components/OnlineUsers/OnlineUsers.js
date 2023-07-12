@@ -12,7 +12,11 @@ export const OnlineUsers = ({ onlineUsers, handleReceiver }) => {
           onlineUsers.length ? (
             onlineUsers.map((user, index) => {
               return (
-                <div key={index} onClick={() => handleReceiver(user.userId)}>
+                <div
+                  key={index}
+                  onClick={() => handleReceiver(user.userId)}
+                  style={{ textTransform: "capitalize" }}
+                >
                   {user.userId}
                 </div>
               );
